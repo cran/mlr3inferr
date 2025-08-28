@@ -1,9 +1,15 @@
 #' @title Conservative-Z CI
-#' @name mlr_measures_ci_con_z
+#' @name mlr_measures_ci.con_z
 #' @description
 #' The conservative-z confidence intervals based on the [`ResamplingPairedSubsampling`].
 #' Because the variance estimate is obtained using only `n / 2` observations, it tends to be conservative.
 #' This inference method can also be applied to non-decomposable losses.
+#'
+#' @section Point Estimation:
+#' For the point estimation, only the first `repeats_out` resampling iterations will be used,
+#' as the other resampling iterations are only used to estimate the variance.
+#' This is respected when calling `$aggregate()` using a standard (non-CI) measure.
+#'
 #' @section Parameters:
 #' Only those from [`MeasureAbstractCi`].
 #' @template param_measure
@@ -22,9 +28,10 @@ MeasureCiConZ = R6Class("MeasureCiConZ",
       super$initialize(
         measure = measure,
         resamplings = "ResamplingPairedSubsampling",
-        label = "Conservative-Z CI",
+        label = "Conservative-Z Interval",
         requires_obs_loss = FALSE,
-        delta_method = TRUE
+        delta_method = TRUE,
+        man = "mlr3inferr::mlr_measures_ci.con_z"
       )
     }
   ),

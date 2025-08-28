@@ -7,6 +7,13 @@
 \description{
 This implements the Nested CV resampling procedure by Bates et al. (2024).
 }
+\section{Point Estimation}{
+
+When calling \verb{$aggregate()} on a resample result obtained using this resampling method, only
+the outer resampling iterations will be used, as they have a smaller bias.
+See section "Point Estimation" of \code{\link[=mlr_measures_ci.ncv]{MeasureCiNestedCV}}.
+}
+
 \section{Parameters}{
 
 \itemize{
@@ -18,7 +25,7 @@ The number of repetitions. THis is initialized to \code{10}.
 }
 
 \examples{
-ncv = rsmp("nested_cv", folds = 3, repeats = 10L)
+ncv = rsmp("ncv", folds = 3, repeats = 10L)
 ncv
 rr = resample(tsk("mtcars"), lrn("regr.featureless"), ncv)
 }
